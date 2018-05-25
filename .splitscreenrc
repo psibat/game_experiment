@@ -1,0 +1,6 @@
+split
+screen -t game ./hotp
+focus
+resize 5
+screen -t log tail -f log
+focus up
