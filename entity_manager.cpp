@@ -2,18 +2,18 @@
 #include "logger.h"
 
 #include <ncurses.h>
-
  
-EntityManager::EntityManager() {
-	existance.resize(MAX_ENTITIES);
-	position_components.resize(MAX_ENTITIES);
-	appearance_components.resize(MAX_ENTITIES);
-}
+EntityManager::EntityManager() :
+	existence(MAX_ENTITIES),
+	position_components(MAX_ENTITIES),
+	movement_components(MAX_ENTITIES),
+	appearance_components(MAX_ENTITIES)
+{}
 
 int EntityManager::new_entity() {
 	for (int i = 0; i < MAX_ENTITIES; i++) {
-		if (!existance.at(i)) {
-			existance.at(i) = true;
+		if (!existence.at(i)) {
+			existence.at(i) = true;
 			log("New entity ID: " + std::to_string(i));
 			return i;
 		}
@@ -25,7 +25,7 @@ int EntityManager::new_entity() {
 }
 
 void EntityManager::delete_entity(int id) {
-	existance.at(id) = false;
+	existence.at(id) = false;
 	delete position_components.at(id);
 	delete appearance_components.at(id);
 
@@ -33,7 +33,7 @@ void EntityManager::delete_entity(int id) {
 }
 
 bool EntityManager::entity_exists(int id) {
-	return existance.at(id);
+	return existence.at(id);
 }
 
 void EntityManager::set_position(int id, PositionComponent* position) {
@@ -42,6 +42,14 @@ void EntityManager::set_position(int id, PositionComponent* position) {
 
 PositionComponent *EntityManager::get_position(int id) {
 	return position_components.at(id);
+}
+
+void EntityManager::set_movement(int id, MovementComponent* movement) {
+	movement_components.at(id) = movement;
+}
+
+MovementComponent *EntityManager::get_movement(int id) {
+	return movement_components.at(id);
 }
 
 void EntityManager::set_appearance(int id, AppearanceComponent* appearance) {

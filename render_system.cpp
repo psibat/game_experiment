@@ -12,8 +12,11 @@ void RenderSystem::work() {
 		if (entity_manager.entity_exists(i)) {
 			PositionComponent *position = entity_manager.get_position(i);
 			AppearanceComponent *appearance = entity_manager.get_appearance(i);
-			mvaddch(position->y, position->x, appearance->model);
-			log("Drawing entity at: " + std::to_string(position->y) + " " + std::to_string( position->x));
+			if (position != NULL && appearance != NULL) {
+				mvaddch(position->y, position->x, appearance->model);
+				log("Drawing entity at: " + 
+						std::to_string(position->y) + " " + std::to_string( position->x));
+			}
 		}
 	}
 }
