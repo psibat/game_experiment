@@ -1,5 +1,3 @@
-#include <ncurses.h>
-
 #include "engine.h"
 
 int main() {
