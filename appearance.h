@@ -1,7 +1,9 @@
+#include "component.h"
+
 #ifndef APPEARANCE
 #define APPEARANCE
 
-struct Appearance {
+struct Appearance : public Component {
 	Appearance(char model);
 
 	char model;

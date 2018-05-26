@@ -41,9 +41,8 @@ void Engine::process() {
 	}
 }
 
-
 void Engine::draw() {
 	erase();
-	entity_manager.render();
+	render_system.work();
 	refresh();
 }

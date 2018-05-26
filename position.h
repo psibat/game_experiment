@@ -1,11 +1,11 @@
+#include "coordinates.h"
+
 #ifndef POSITION
 #define POSITION
 
-struct Position {
-	Position(int y, int x);
-
-	int y;
-	int x;
+struct Position : public Coordinates {
+	Position(int y, int x) : Coordinates(y, x) {};
 };
+
 
 #endif
