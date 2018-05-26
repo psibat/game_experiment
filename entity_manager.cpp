@@ -2,50 +2,52 @@
 #include "logger.h"
 
 #include <ncurses.h>
+
  
 EntityManager::EntityManager() {
-	exists.resize(MAX_ENTITIES);
-	positions.resize(MAX_ENTITIES);
-	appearances.resize(MAX_ENTITIES);
+	existance.resize(MAX_ENTITIES);
+	position_components.resize(MAX_ENTITIES);
+	appearance_components.resize(MAX_ENTITIES);
 }
 
 int EntityManager::new_entity() {
 	for (int i = 0; i < MAX_ENTITIES; i++) {
-		if (!exists.at(i)) {
-			exists.at(i) = true;
+		if (!existance.at(i)) {
+			existance.at(i) = true;
 			log("New entity ID: " + std::to_string(i));
 			return i;
 		}
 	}
 
 	log("Failed to get new entity");
+
 	return -1;
 }
 
 void EntityManager::delete_entity(int id) {
-	exists.at(id) = false;
-	delete positions.at(id);
-	delete appearances.at(id);
+	existance.at(id) = false;
+	delete position_components.at(id);
+	delete appearance_components.at(id);
 
 	log("Destroyed entity ID: " + std::to_string(id));
 }
 
-Position *EntityManager::position(int id) {
-	return positions.at(id);
+bool EntityManager::entity_exists(int id) {
+	return existance.at(id);
 }
 
-Appearance *EntityManager::appearance(int id) {
-	return appearances.at(id);
+void EntityManager::set_position(int id, PositionComponent* position) {
+	position_components.at(id) = position;
 }
 
-bool EntityManager::exist(int id) {
-	return exists.at(id);
+PositionComponent *EntityManager::get_position(int id) {
+	return position_components.at(id);
 }
 
-int EntityManager::createMan(int y, int x) {
-	int id = new_entity();
-	positions.at(id) = new Position(y, x);
-	appearances.at(id) = new Appearance('@');
+void EntityManager::set_appearance(int id, AppearanceComponent* appearance) {
+	appearance_components.at(id) = appearance;
+}
 
-	return id;
+AppearanceComponent *EntityManager::get_appearance(int id) {
+	return appearance_components.at(id);
 }

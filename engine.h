@@ -9,6 +9,11 @@ class Engine {
 	public:
 		Engine();
 
+		enum State {
+			Stop,
+			Gameplay
+		};
+
 		void start();
 		void stop();
 	private:
@@ -16,7 +21,7 @@ class Engine {
 		EntityManager entity_manager;
 		RenderSystem render_system = RenderSystem(entity_manager);
 
-		bool running;
+		State state;
 
 		void process();
 		void draw();

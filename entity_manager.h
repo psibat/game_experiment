@@ -1,7 +1,8 @@
 #include <vector>
+#include <map>
 
-#include "position.h"
-#include "appearance.h"
+#include "position_component.h"
+#include "appearance_component.h"
 
 #ifndef ENTITY_MANAGER
 #define ENTITY_MANAGER
@@ -14,17 +15,19 @@ class EntityManager {
 
 		int new_entity();
 		void delete_entity(int id);
+		bool entity_exists(int id);
 
-		Position *position(int id);
-		Appearance *appearance(int id);
-		bool exist(int id);
+		void set_position(int id, PositionComponent* position);
+		PositionComponent *get_position(int id);
 
-		int createMan(int y, int x);
+		void set_appearance(int id, AppearanceComponent* appearance);
+		AppearanceComponent *get_appearance(int id);
 
 	private:
-		std::vector<bool> exists;
-		std::vector<Position *> positions;
-		std::vector<Appearance *> appearances;
+		std::vector<bool> existance;
+		std::vector<PositionComponent *> position_components;
+		std::vector<AppearanceComponent *> appearance_components;
+
 };
 
 #endif

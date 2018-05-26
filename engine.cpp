@@ -10,20 +10,20 @@ void Engine::start() {
 	int height, width;
 	getmaxyx(stdscr, height, width);
 
-	running = true;
+	state = Gameplay;
 
-	entity_manager.createMan(3, 5);
-	entity_manager.createMan(7, 10);
-	entity_manager.createMan(5, 54);
+	int id = entity_manager.new_entity();
+	entity_manager.set_position(id, new PositionComponent(3, 4));
+	entity_manager.set_appearance(id, new AppearanceComponent('@'));
 
-	while(running) {
+	while(state != Stop) {
 		draw();
 		process();
 	}
 }
 
 void Engine::stop() {
-	running = false;
+	state = Stop;
 }
 
 void Engine::process() {
