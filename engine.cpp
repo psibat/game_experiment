@@ -10,27 +10,33 @@ void Engine::start() {
 	int height, width;
 	getmaxyx(stdscr, height, width);
 
-	state = Gameplay;
+	state = GAMEPLAY;
 
 	int player = entity_manager.new_entity();
 	entity_manager.set_player(player);
+	entity_manager.set_center(player);
 	entity_manager.set_position(player, new PositionComponent(3, 4));
 	entity_manager.set_appearance(player, new AppearanceComponent('@'));
 	entity_manager.set_movement(player, new MovementComponent(0, 0));
 
-	while(state != Stop) {
+	int other = entity_manager.new_entity();
+	entity_manager.set_position(other, new PositionComponent(1, 1));
+	entity_manager.set_appearance(other, new AppearanceComponent('O'));
+
+	while(state != STOP) {
 		draw();
 		process();
 	}
 }
 
 void Engine::stop() {
-	state = Stop;
+	state = STOP;
 }
 
 void Engine::process() {
-	int player = entity_manager.get_player();
 	int ch = getch();
+
+	int player = entity_manager.get_player();
 	if(ch == KEY_LEFT) {
 		entity_manager.get_movement(player)->x--;
 		log("Left input");
@@ -46,8 +52,6 @@ void Engine::process() {
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();
 	}
-	entity_manager.delete_entity(player);
-
 	movement_system.work();
 }
 

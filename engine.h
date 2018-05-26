@@ -1,6 +1,7 @@
 #include "screen.h"
 
 #include "entity_manager.h"
+#include "world.h"
 
 #include "render_system.h"
 #include "movement_system.h"
@@ -13,8 +14,8 @@ class Engine {
 		Engine();
 
 		enum State {
-			Stop,
-			Gameplay
+			STOP,
+			GAMEPLAY
 		};
 
 		void start();
@@ -22,10 +23,12 @@ class Engine {
 	private:
 		Screen scr;
 		EntityManager entity_manager;
+		World *world;
+		State state;
+
+		// Systems
 		RenderSystem render_system = RenderSystem(entity_manager);
 		MovementSystem movement_system = MovementSystem(entity_manager);
-
-		State state;
 
 		void process();
 		void draw();

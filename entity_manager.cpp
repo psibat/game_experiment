@@ -26,7 +26,12 @@ int EntityManager::new_entity() {
 
 void EntityManager::delete_entity(int id) {
 	existence.at(id) = false;
+
+	if (player == id) player = -1;
+	if (center == id) center = -1;
+
 	delete position_components.at(id);
+	delete movement_components.at(id);
 	delete appearance_components.at(id);
 
 	log("Destroyed entity ID: " + std::to_string(id));
@@ -42,6 +47,14 @@ void EntityManager::set_player(int id) {
 
 int EntityManager::get_player() {
 	return player;
+}
+
+void EntityManager::set_center(int id) {
+	center = id;
+}
+
+int EntityManager::get_center() {
+	return center;
 }
 
 void EntityManager::set_position(int id, PositionComponent* position) {

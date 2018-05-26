@@ -21,6 +21,9 @@ class EntityManager {
 		void set_player(int id);
 		int get_player();
 
+		void set_center(int id);
+		int get_center();
+
 		void set_position(int id, PositionComponent* position);
 		PositionComponent *get_position(int id);
 
@@ -31,7 +34,11 @@ class EntityManager {
 		AppearanceComponent *get_appearance(int id);
 
 	private:
-		int player;
+		// Single owner entity flags
+		int player = -1;
+		int center = -1;
+		
+		// Components / flags
 		std::vector<bool> existence;
 		std::vector<PositionComponent *> position_components;
 		std::vector<MovementComponent *> movement_components;
