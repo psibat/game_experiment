@@ -5,8 +5,8 @@
 #include "movement_component.h"
 #include "appearance_component.h"
 
-#ifndef ENTITY_MANAGER
-#define ENTITY_MANAGER
+#ifndef ENTITY_MANAGER_H
+#define ENTITY_MANAGER_H
 
 static const int MAX_ENTITIES = 200;
 
@@ -18,6 +18,9 @@ class EntityManager {
 		void delete_entity(int id);
 		bool entity_exists(int id);
 
+		void set_player(int id);
+		int get_player();
+
 		void set_position(int id, PositionComponent* position);
 		PositionComponent *get_position(int id);
 
@@ -28,6 +31,7 @@ class EntityManager {
 		AppearanceComponent *get_appearance(int id);
 
 	private:
+		int player;
 		std::vector<bool> existence;
 		std::vector<PositionComponent *> position_components;
 		std::vector<MovementComponent *> movement_components;

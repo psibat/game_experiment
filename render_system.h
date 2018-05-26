@@ -1,7 +1,7 @@
 #include "system.h"
 
-#ifndef RENDER_SYSTEM
-#define RENDER_SYSTEM
+#ifndef RENDER_SYSTEM_H
+#define RENDER_SYSTEM_H
 
 class RenderSystem : private System {
 	public:

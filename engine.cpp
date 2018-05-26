@@ -12,7 +12,8 @@ void Engine::start() {
 
 	state = Gameplay;
 
-	player = entity_manager.new_entity();
+	int player = entity_manager.new_entity();
+	entity_manager.set_player(player);
 	entity_manager.set_position(player, new PositionComponent(3, 4));
 	entity_manager.set_appearance(player, new AppearanceComponent('@'));
 	entity_manager.set_movement(player, new MovementComponent(0, 0));
@@ -28,6 +29,7 @@ void Engine::stop() {
 }
 
 void Engine::process() {
+	int player = entity_manager.get_player();
 	int ch = getch();
 	if(ch == KEY_LEFT) {
 		entity_manager.get_movement(player)->x--;
@@ -44,6 +46,7 @@ void Engine::process() {
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();
 	}
+	entity_manager.delete_entity(player);
 
 	movement_system.work();
 }

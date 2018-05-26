@@ -1,7 +1,7 @@
 #include "system.h"
 
-#ifndef MOVEMENT_SYSTEM
-#define MOVEMENT_SYSTEM
+#ifndef MOVEMENT_SYSTEM_H
+#define MOVEMENT_SYSTEM_H
 
 class MovementSystem : public System {
 	public:

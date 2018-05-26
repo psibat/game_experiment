@@ -5,8 +5,8 @@
 #include "render_system.h"
 #include "movement_system.h"
 
-#ifndef ENGINE
-#define ENGINE
+#ifndef ENGINE_H
+#define ENGINE_H
 
 class Engine {
 	public:
@@ -26,8 +26,6 @@ class Engine {
 		MovementSystem movement_system = MovementSystem(entity_manager);
 
 		State state;
-
-		int player;
 
 		void process();
 		void draw();

@@ -1,8 +1,8 @@
 #include <string>
 #include <fstream>
 
-#ifndef LOGGER
-#define LOGGER
+#ifndef LOGGER_H
+#define LOGGER_H
 
 class Logger {
 	public:

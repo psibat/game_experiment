@@ -1,7 +1,7 @@
 #include "component.h"
 
-#ifndef COORDINATES_COMPONENT
-#define COORDINATES_COMPONENT
+#ifndef COORDINATES_COMPONENT_H
+#define COORDINATES_COMPONENT_H
 
 struct CoordinatesComponent : public Component {
 		CoordinatesComponent(int y, int x);

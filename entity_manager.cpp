@@ -36,6 +36,14 @@ bool EntityManager::entity_exists(int id) {
 	return existence.at(id);
 }
 
+void EntityManager::set_player(int id) {
+	player = id;
+}
+
+int EntityManager::get_player() {
+	return player;
+}
+
 void EntityManager::set_position(int id, PositionComponent* position) {
 	position_components.at(id) = position;
 }
