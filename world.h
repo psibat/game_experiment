@@ -16,6 +16,7 @@ class World {
 		int get_width();
 
 		Terrain get_tile(int y, int x);
+		void set_tile(int y, int x, Terrain terrain);
 
 	private:
 		int height;

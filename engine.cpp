@@ -4,7 +4,7 @@
 
 #include "logger.h"
  
-Engine::Engine() { }
+Engine::Engine() : world(0, 0) { }
 
 void Engine::start() {
 	int height, width;
@@ -26,6 +26,8 @@ void Engine::start() {
 	while(state != STOP) {
 		draw();
 		process();
+		world = World(12, 40);
+		world.set_tile(10, 10, World::Wall);
 	}
 }
 

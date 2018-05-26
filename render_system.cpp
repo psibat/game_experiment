@@ -4,7 +4,10 @@
 
 #include "logger.h"
  
-RenderSystem::RenderSystem(EntityManager &entity_manager) : System(entity_manager){ }
+RenderSystem::RenderSystem(EntityManager &entity_manager, World &world) : 
+	System(entity_manager),
+	world(world)
+{ }
 
 void RenderSystem::work() {
 	render(stdscr);
@@ -22,7 +25,7 @@ void RenderSystem::render(WINDOW *window) {
 	int offset_y = calc_offset(height, center->y);
 	int offset_x = calc_offset(width, center->x);
 
-	log(std::to_string(center->y));
+	render_world(window, offset_y, offset_x);
 
 	for (int i = 0; i < MAX_ENTITIES; i++) {
 		if (entity_manager.entity_exists(i)) {
@@ -36,8 +39,19 @@ void RenderSystem::render(WINDOW *window) {
 			}
 		}
 	}
-
 }
+
+void RenderSystem::render_world(WINDOW *window, int offset_y, int offset_x) {
+	for (int y = 0; y < world.get_height(); y++) {
+		for (int x = 0; x < world.get_width(); x++) {
+			char model = world.get_tile(y, x) == World::Wall ? '#' : ' '; 
+			mvwaddch(window, y + offset_y, x + offset_x, model);
+			if (world.get_tile(y, x) == World::Wall) {
+			}
+		}
+	}
+}
+
 
 int RenderSystem::calc_offset(int screen_dimension, int center) {
 	return (screen_dimension / 2) - center;

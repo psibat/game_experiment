@@ -23,12 +23,15 @@ class Engine {
 	private:
 		Screen scr;
 		EntityManager entity_manager;
-		World *world;
+		World world;
 		State state;
 
+		// World loader (Either class or method)
+
 		// Systems
-		RenderSystem render_system = RenderSystem(entity_manager);
+		RenderSystem render_system = RenderSystem(entity_manager, world);
 		MovementSystem movement_system = MovementSystem(entity_manager);
+		//CollisionSystem
 
 		void process();
 		void draw();
