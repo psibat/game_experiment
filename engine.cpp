@@ -4,7 +4,10 @@
 
 #include "logger.h"
  
-Engine::Engine() : world(20, 20) { }
+Engine::Engine() : world(20, 20),
+	render_system(entity_manager, world),
+	movement_system(entity_manager, world)
+{ }
 
 void Engine::start() {
 	int height, width;
@@ -53,7 +56,6 @@ void Engine::process() {
 		stop();
 	}
 
-	collision_system.work();
 	movement_system.work();
 }
 

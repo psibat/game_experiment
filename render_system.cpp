@@ -31,7 +31,8 @@ void RenderSystem::render(WINDOW *window) {
 				int y = offset_y + position->y;
 				int x = offset_x + position->x;
 				mvaddch(y, x, appearance->model);
-				log("Drawing entity at: " + std::to_string(y) + " " + std::to_string(x));
+				log("Drawing " + std::to_string(i) + " at: " + 
+						std::to_string(position->y) + " " + std::to_string(position->x));
 			}
 		}
 	}
