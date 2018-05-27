@@ -4,13 +4,15 @@
 
 #include "logger.h"
  
-Engine::Engine() : world(0, 0) { }
+Engine::Engine() : world(20, 20) { }
 
 void Engine::start() {
 	int height, width;
 	getmaxyx(stdscr, height, width);
 
 	state = GAMEPLAY;
+
+	world.set_tile(10, 10, World::Wall);
 
 	int player = entity_manager.new_entity();
 	entity_manager.set_player(player);
@@ -26,14 +28,10 @@ void Engine::start() {
 	while(state != STOP) {
 		draw();
 		process();
-		world = World(12, 40);
-		world.set_tile(10, 10, World::Wall);
 	}
 }
 
-void Engine::stop() {
-	state = STOP;
-}
+void Engine::stop() { state = STOP; }
 
 void Engine::process() {
 	int ch = getch();
@@ -54,6 +52,8 @@ void Engine::process() {
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();
 	}
+
+	collision_system.work();
 	movement_system.work();
 }
 

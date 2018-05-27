@@ -37,46 +37,30 @@ void EntityManager::delete_entity(int id) {
 	log("Destroyed entity ID: " + std::to_string(id));
 }
 
-bool EntityManager::entity_exists(int id) {
-	return existence.at(id);
-}
+bool EntityManager::entity_exists(int id) { return existence.at(id); }
 
-void EntityManager::set_player(int id) {
-	player = id;
-}
+void EntityManager::set_player(int id) { player = id; }
 
-int EntityManager::get_player() {
-	return player;
-}
+int EntityManager::get_player() { return player; }
 
-void EntityManager::set_center(int id) {
-	center = id;
-}
+void EntityManager::set_center(int id) { center = id; }
 
-int EntityManager::get_center() {
-	return center;
-}
+int EntityManager::get_center() { return center; }
 
 void EntityManager::set_position(int id, PositionComponent* position) {
 	position_components.at(id) = position;
 }
 
-PositionComponent *EntityManager::get_position(int id) {
-	return position_components.at(id);
-}
+PositionComponent *EntityManager::get_position(int id) { return position_components.at(id); }
 
 void EntityManager::set_movement(int id, MovementComponent* movement) {
 	movement_components.at(id) = movement;
 }
 
-MovementComponent *EntityManager::get_movement(int id) {
-	return movement_components.at(id);
-}
+MovementComponent *EntityManager::get_movement(int id) { return movement_components.at(id); }
 
 void EntityManager::set_appearance(int id, AppearanceComponent* appearance) {
 	appearance_components.at(id) = appearance;
 }
 
-AppearanceComponent *EntityManager::get_appearance(int id) {
-	return appearance_components.at(id);
-}
+AppearanceComponent *EntityManager::get_appearance(int id) { return appearance_components.at(id); }

@@ -8,13 +8,12 @@ void MovementSystem::work() {
 			PositionComponent *position = entity_manager.get_position(i);
 			MovementComponent *movement = entity_manager.get_movement(i);
 			if (position != NULL && movement != NULL) {
-				position->x += movement->x;
 				position->y += movement->y;
-				movement->x = 0;
+				position->x += movement->x;
 				movement->y = 0;
+				movement->x = 0;
 			}
 
 		}
 	}
-
 }

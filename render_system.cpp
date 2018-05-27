@@ -9,13 +9,9 @@ RenderSystem::RenderSystem(EntityManager &entity_manager, World &world) :
 	world(world)
 { }
 
-void RenderSystem::work() {
-	render(stdscr);
-}
+void RenderSystem::work() { render(stdscr); }
 
-void RenderSystem::work(WINDOW *window) {
-	render(window);
-}
+void RenderSystem::work(WINDOW *window) { render(window); }
 
 void RenderSystem::render(WINDOW *window) {
 	PositionComponent *center = entity_manager.get_position(entity_manager.get_center());
