@@ -15,6 +15,8 @@ class MovementSystem : public System {
 
 		void update_entity(int id);
 
+		void keep_in_bounds(MovementComponent *movement, PositionComponent *position);
+
 };
 
 #endif

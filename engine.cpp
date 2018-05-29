@@ -32,6 +32,7 @@ void Engine::start() {
 	while(state != STOP) {
 		draw();
 		process();
+		log("---!---");
 	}
 }
 
