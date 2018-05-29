@@ -6,8 +6,9 @@
  
 Engine::Engine() : world(20, 20),
 	render_system(entity_manager, world),
-	movement_system(entity_manager, world)
-{ }
+	movement_system(entity_manager, world) {
+
+	}
 
 void Engine::start() {
 	int height, width;
@@ -56,11 +57,11 @@ void Engine::process() {
 		stop();
 	}
 
-	movement_system.work();
+	movement_system.update();
 }
 
 void Engine::draw() {
 	erase();
-	render_system.work();
+	render_system.update();
 	refresh();
 }

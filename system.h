@@ -9,8 +9,13 @@ class System {
 
 		EntityManager &entity_manager;
 
-		virtual void work() = 0;
+		virtual void update() = 0;
+
+	protected:
+		void update_entities();
+
 	private:
+		virtual void update_entity(int id) = 0;
 };
 
 #endif

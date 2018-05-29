@@ -3,7 +3,7 @@
 
 struct Component {
 	Component();
-	virtual ~Component() = 0 ;
+	virtual ~Component() = 0;
 };
 
 #endif

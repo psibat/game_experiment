@@ -8,9 +8,12 @@
 class MovementSystem : public System {
 	public:
 		MovementSystem(EntityManager &entity_manager, World &world);
-		void work();
+
+		void update();
 	private:
 		World &world;
+
+		void update_entity(int id);
 
 };
 

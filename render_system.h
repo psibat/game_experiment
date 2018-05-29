@@ -8,16 +8,23 @@
 
 class RenderSystem : private System {
 	public:
-		RenderSystem(EntityManager &entity_manager, World &world);
+		RenderSystem(EntityManager &entity_manager, World &world, WINDOW *window = stdscr);
 
-		void work();
-		void work(WINDOW *window);
+		WINDOW *window;
+		int height, width;
+
+		int offset_y, offset_x;
+
+		void set_window(WINDOW *window);
+
+		void update();
 
 	private:
 		World &world;
 
-		void render(WINDOW *window);
-		void render_world(WINDOW *window, int offset_y, int offset_x);
+		void update_entity(int id);
+		void update_world();
+
 		int calc_offset(int screen_dimension, int center);
 };
 

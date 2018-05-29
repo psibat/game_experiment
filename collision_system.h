@@ -9,8 +9,12 @@ class CollisionSystem : public System {
 	public:
 		CollisionSystem(EntityManager &entity_manager, World &world);
 
+		void update();
+	
+	private:
 		World &world;
-		void work();
+
+		void update_entity(int id);
 
 };
 
