@@ -23,7 +23,6 @@ void Engine::start() {
 	entity_manager.set_center(player);
 	entity_manager.set_position(player, new PositionComponent(3, 4));
 	entity_manager.set_appearance(player, new AppearanceComponent('@'));
-	entity_manager.set_movement(player, new MovementComponent(0, 0));
 
 	int other = entity_manager.new_entity();
 	entity_manager.set_position(other, new PositionComponent(1, 1));
@@ -43,16 +42,12 @@ void Engine::process() {
 
 	int player = entity_manager.get_player();
 	if(ch == KEY_LEFT) {
-		entity_manager.get_movement(player)->x--;
 		log("Left input");
 	} else if(ch == KEY_RIGHT) {
-		entity_manager.get_movement(player)->x++;
 		log("Right input");
 	} else if(ch == KEY_UP) {
-		entity_manager.get_movement(player)->y--;
 		log("Up input");
 	} else if(ch == KEY_DOWN) {
-		entity_manager.get_movement(player)->y++;
 		log("Down input");
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();

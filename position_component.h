@@ -1,10 +1,11 @@
-#include "coordinates_component.h"
+#include "position.h"
+#include "component.h"
 
-#ifndef POSITION_H
-#define POSITION_H
+#ifndef POSITION_COMPONENT_H
+#define POSITION_COMPONENT_H
 
-struct PositionComponent : public CoordinatesComponent {
-	PositionComponent(int y, int x) : CoordinatesComponent(y, x) {};
+struct PositionComponent : public Position, public Component {
+	PositionComponent(int y, int x);
 };
 
 
