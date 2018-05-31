@@ -1,4 +1,4 @@
 #include "movement_component.h"
  
-MovementComponent::MovementComponent() {
-}
+MovementComponent::MovementComponent() : direction(Direction::NONE) { }
+

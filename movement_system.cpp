@@ -16,32 +16,52 @@ void MovementSystem::update_entity(int id) {
 	PositionComponent *position = entity_manager.get_position(id);
 	MovementComponent *movement = entity_manager.get_movement(id);
 	if (position != NULL && movement != NULL) {
-		keep_in_bounds(movement, position);
+		Position offset = movement_to_offset(movement);
+		Position target = {position->current.y + offset.y, position->current.x + offset.x};
+		target = keep_in_bounds(target);
+		position->current = target;
 
 	}
 }
 
-void MovementSystem::keep_in_bounds(MovementComponent *movement, PositionComponent *position) {
+Position MovementSystem::keep_in_bounds(Position target) {
+	if (target.y > world.get_height()) {
+		target.y = world.get_height();
+	} else if (target.y < 0) {
+		target.y = 0;
+	}
 
-//	int y = position->y + movement->y;
-//	int x = position->x + movement->x;
-//
-//	if (y > world.get_height()) {
-//		movement->y = world.get_height() - position->y;
-//	} else if (y < 0) {
-//		movement->y = -position->y;
-//	}
-//
-//
-//	log("Movement: " + std::to_string(movement->x));
-//
-//	if (x > world.get_width()) {
-//		movement->x = world.get_width() - position->x;
-//	} else if (x < 0) {
-//		movement->x = -position->x;
-//	}
-//
-//
-//	log("New movement: " + std::to_string(movement->x));
+	if (target.x > world.get_width()) {
+		target.x = world.get_width();
+	} else if (target.x < 0) {
+		target.x = 0;
+	}
 
+	return target;
+}
+
+Position MovementSystem::movement_to_offset(MovementComponent *movement) {
+	Position offset = {0, 0};
+	int distance = movement->distance;
+
+	switch(movement->direction) {
+		case Direction::NONE:
+			offset = {0, 0};
+			break;
+		case Direction::NORTH:
+			offset = {-distance, 0};
+			break;
+		case Direction::EAST:
+			offset = {0, -distance};
+			break;
+		case Direction::SOUTH:
+			offset = {distance, 0};
+			break;
+		case Direction::WEST:
+			offset = {0, distance};
+			break;
+	}
+
+
+	return offset;
 }

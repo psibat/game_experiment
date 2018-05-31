@@ -4,8 +4,10 @@
 #ifndef POSITION_COMPONENT_H
 #define POSITION_COMPONENT_H
 
-struct PositionComponent : public Position, public Component {
+struct PositionComponent : public Component {
 	PositionComponent(int y, int x);
+
+	Position current;
 };
 
 

@@ -17,8 +17,8 @@ void RenderSystem::set_window(WINDOW *window) {
 
 void RenderSystem::update() {
 	PositionComponent *center = entity_manager.get_position(entity_manager.get_center());
-	offset_y = calc_offset(height, center->y);
-	offset_x = calc_offset(width, center->x);
+	offset_y = calc_offset(height, center->current.y);
+	offset_x = calc_offset(width, center->current.x);
 
 	update_world();
 	update_entities();
@@ -28,11 +28,11 @@ void RenderSystem::update_entity(int id) {
 	PositionComponent *position = entity_manager.get_position(id);
 	AppearanceComponent *appearance = entity_manager.get_appearance(id);
 	if (position != NULL && appearance != NULL) {
-		int y = offset_y + position->y;
-		int x = offset_x + position->x;
+		int y = offset_y + position->current.y;
+		int x = offset_x + position->current.x;
 		mvaddch(y, x, appearance->model);
 		log("Drawing " + std::to_string(id) + " at: " + 
-				std::to_string(position->y) + " " + std::to_string(position->x));
+				std::to_string(position->current.y) + " " + std::to_string(position->current.x));
 	}
 }
 
