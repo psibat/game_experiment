@@ -17,7 +17,7 @@ void Engine::start() {
 
 	state = GAMEPLAY;
 
-	world.set_tile(10, 10, World::Wall);
+	world.set_tile(19, 19, World::Wall);
 
 	int player = entity_manager.new_entity();
 	entity_manager.set_player(player);

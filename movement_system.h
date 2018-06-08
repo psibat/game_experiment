@@ -1,5 +1,7 @@
 #include "system.h"
 
+#include <vector>
+
 #include "world.h"
 
 #ifndef MOVEMENT_SYSTEM_H

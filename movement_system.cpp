@@ -19,20 +19,22 @@ void MovementSystem::update_entity(int id) {
 		Position offset = movement_to_offset(movement);
 		Position target = {position->current.y + offset.y, position->current.x + offset.x};
 		target = keep_in_bounds(target);
+
 		position->current = target;
+
 
 	}
 }
 
 Position MovementSystem::keep_in_bounds(Position target) {
-	if (target.y > world.get_height()) {
-		target.y = world.get_height();
+	if (target.y > world.get_height() - 1) {
+		target.y = world.get_height() - 1;
 	} else if (target.y < 0) {
 		target.y = 0;
 	}
 
-	if (target.x > world.get_width()) {
-		target.x = world.get_width();
+	if (target.x > world.get_width() - 1) {
+		target.x = world.get_width() - 1;
 	} else if (target.x < 0) {
 		target.x = 0;
 	}
@@ -61,7 +63,6 @@ Position MovementSystem::movement_to_offset(MovementComponent *movement) {
 			offset = {0, distance};
 			break;
 	}
-
 
 	return offset;
 }
