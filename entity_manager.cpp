@@ -7,7 +7,8 @@ EntityManager::EntityManager() :
 	existence(MAX_ENTITIES),
 	position_components(MAX_ENTITIES),
 	movement_components(MAX_ENTITIES),
-	appearance_components(MAX_ENTITIES) {
+	appearance_components(MAX_ENTITIES), 
+	accelerate_components(MAX_ENTITIES) {
 	
 	}
 
@@ -32,8 +33,13 @@ void EntityManager::delete_entity(int id) {
 	if (center == id) center = -1;
 
 	delete position_components.at(id);
+	position_components.at(id) = NULL;
 	delete movement_components.at(id);
+	movement_components.at(id) = NULL;
 	delete appearance_components.at(id);
+	appearance_components.at(id) = NULL;
+	delete accelerate_components.at(id);
+	accelerate_components.at(id) = NULL;
 
 	log("Destroyed entity ID: " + std::to_string(id));
 }
@@ -76,4 +82,12 @@ void EntityManager::set_appearance(int id, AppearanceComponent* appearance) {
 
 AppearanceComponent *EntityManager::get_appearance(int id) { 
 	return appearance_components.at(id);
+}
+
+void EntityManager::set_accelerate(int id, AccelerateComponent* accelerate) {
+	accelerate_components.at(id) = accelerate;
+}
+
+AccelerateComponent *EntityManager::get_accelerate(int id) { 
+	return accelerate_components.at(id);
 }

@@ -1,7 +1,5 @@
 #include "system.h"
 
-#include "world.h"
-
 #ifndef COLLISION_SYSTEM_H
 #define COLLISION_SYSTEM_H
 
@@ -12,7 +10,6 @@ class CollisionSystem : public System {
 		void update();
 	
 	private:
-		World &world;
 
 		void update_entity(int id);
 

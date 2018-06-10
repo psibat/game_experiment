@@ -4,6 +4,7 @@
 #include "position_component.h"
 #include "movement_component.h"
 #include "appearance_component.h"
+#include "accelerate_component.h"
 
 #ifndef ENTITY_MANAGER_H
 #define ENTITY_MANAGER_H
@@ -33,6 +34,9 @@ class EntityManager {
 		void set_appearance(int id, AppearanceComponent* appearance);
 		AppearanceComponent *get_appearance(int id);
 
+		void set_accelerate(int id, AccelerateComponent* accelerate);
+		AccelerateComponent *get_accelerate(int id);
+
 	private:
 		// Single owner entity flags
 		int player = -1;
@@ -43,6 +47,7 @@ class EntityManager {
 		std::vector<PositionComponent *> position_components;
 		std::vector<MovementComponent *> movement_components;
 		std::vector<AppearanceComponent *> appearance_components;
+		std::vector<AccelerateComponent *> accelerate_components;
 
 };
 

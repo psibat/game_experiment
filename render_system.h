@@ -20,8 +20,6 @@ class RenderSystem : private System {
 		void update();
 
 	private:
-		World &world;
-
 		void update_entity(int id);
 		void update_world();
 

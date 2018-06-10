@@ -7,6 +7,7 @@
  
 Engine::Engine() : world(20, 20),
 	render_system(entity_manager, world),
+	accelerate_system(entity_manager, world),
 	movement_system(entity_manager, world) {
 
 	}
@@ -43,23 +44,29 @@ void Engine::process() {
 	int ch = getch();
 
 	int player = entity_manager.get_player();
-	entity_manager.get_movement(player)->distance = 1;
+	entity_manager.set_accelerate(player, new AccelerateComponent());
+	entity_manager.get_accelerate(player)->distance = 1;
+	entity_manager.get_accelerate(player)->speed = 1;
 	if(ch == KEY_LEFT) {
-		entity_manager.get_movement(player)->direction = Direction::EAST;
+		entity_manager.get_accelerate(player)->direction = Direction::EAST;
 		log("Left input");
 	} else if(ch == KEY_RIGHT) {
-		entity_manager.get_movement(player)->direction = Direction::WEST;
+		entity_manager.get_accelerate(player)->direction = Direction::WEST;
 		log("Right input");
 	} else if(ch == KEY_UP) {
-		entity_manager.get_movement(player)->direction = Direction::NORTH;
+		entity_manager.get_accelerate(player)->direction = Direction::NORTH;
 		log("Up input");
 	} else if(ch == KEY_DOWN) {
-		entity_manager.get_movement(player)->direction = Direction::SOUTH;
+		entity_manager.get_accelerate(player)->direction = Direction::SOUTH;
 		log("Down input");
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();
+	} else if(ch == 'o') {
+		delete entity_manager.get_accelerate(player);
+		entity_manager.set_accelerate(player, NULL);
 	}
 
+	accelerate_system.update();
 	movement_system.update();
 }
 

@@ -13,13 +13,8 @@ class MovementSystem : public System {
 
 		void update();
 	private:
-		World &world;
-
 		void update_entity(int id);
 
-		Position keep_in_bounds(Position target);
-		
-		Position movement_to_offset(MovementComponent *movement);
 
 };
 

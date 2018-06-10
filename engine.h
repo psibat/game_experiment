@@ -5,6 +5,7 @@
 
 #include "render_system.h"
 #include "movement_system.h"
+#include "accelerate_system.h"
 
 #ifndef ENGINE_H
 #define ENGINE_H
@@ -30,6 +31,7 @@ class Engine {
 
 		// Systems
 		RenderSystem render_system;
+		AccelerateSystem accelerate_system;
 		MovementSystem movement_system;
 
 		void process();

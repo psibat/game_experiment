@@ -5,9 +5,8 @@
 #include "logger.h"
  
 RenderSystem::RenderSystem(EntityManager &entity_manager, World &world, WINDOW *window) : 
-	System(entity_manager),
-	window(window),
-	world(world) {
+	System(entity_manager, world),
+	window(window) {
 	getmaxyx(window, height, width);
 }
 

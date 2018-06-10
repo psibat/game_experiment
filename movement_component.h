@@ -1,6 +1,7 @@
 #include "component.h"
 
-#include "direction.h"
+#include <vector>
+#include "position.h"
 
 #ifndef MOVEMENT_COMPONENT_H
 #define MOVEMENT_COMPONENT_H
@@ -8,9 +9,9 @@
 struct MovementComponent : public Component {
 	MovementComponent();
 
-	Direction direction;
-	int distance;
-	int duration;
+	int in_motion = -1;
+	int steps = 0;
+	std::vector<Position> path;
 };
 
 #endif

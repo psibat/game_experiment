@@ -1,8 +1,7 @@
 #include "collision_system.h"
  
 CollisionSystem::CollisionSystem(EntityManager &entity_manager, World &world) : 
-	System(entity_manager),
-	world(world) {
+	System(entity_manager, world) { 
 
 	}
 
