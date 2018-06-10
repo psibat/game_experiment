@@ -15,6 +15,8 @@ class MovementSystem : public System {
 	private:
 		void update_entity(int id);
 
+		void register_collisions(int id, MovementComponent *movement, CollisionComponent *collision);
+
 
 };
 

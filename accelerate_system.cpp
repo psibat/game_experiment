@@ -20,7 +20,6 @@ void AccelerateSystem::update_entity(int id) {
 		Position target = {position->current.y + offset.y, position->current.x + offset.x};
 		target = keep_in_bounds(target);
 
-
 		movement->in_motion = 0;
 		movement->path = create_path(position->current, target);
 		movement->steps = accelerate->speed;

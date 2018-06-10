@@ -8,7 +8,8 @@ EntityManager::EntityManager() :
 	position_components(MAX_ENTITIES),
 	movement_components(MAX_ENTITIES),
 	appearance_components(MAX_ENTITIES), 
-	accelerate_components(MAX_ENTITIES) {
+	accelerate_components(MAX_ENTITIES),
+	collision_components(MAX_ENTITIES) {
 	
 	}
 
@@ -40,6 +41,8 @@ void EntityManager::delete_entity(int id) {
 	appearance_components.at(id) = NULL;
 	delete accelerate_components.at(id);
 	accelerate_components.at(id) = NULL;
+	delete collision_components.at(id);
+	collision_components.at(id) = NULL;
 
 	log("Destroyed entity ID: " + std::to_string(id));
 }
@@ -90,4 +93,12 @@ void EntityManager::set_accelerate(int id, AccelerateComponent* accelerate) {
 
 AccelerateComponent *EntityManager::get_accelerate(int id) { 
 	return accelerate_components.at(id);
+}
+
+void EntityManager::set_collison(int id, CollisionComponent* collision) {
+	collision_components.at(id) = collision;
+}
+
+CollisionComponent *EntityManager::get_collision(int id) {
+	return collision_components.at(id);
 }

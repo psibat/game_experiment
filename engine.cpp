@@ -8,7 +8,8 @@
 Engine::Engine() : world(20, 20),
 	render_system(entity_manager, world),
 	accelerate_system(entity_manager, world),
-	movement_system(entity_manager, world) {
+	movement_system(entity_manager, world),
+	collision_system(entity_manager, world) {
 
 	}
 
@@ -26,10 +27,12 @@ void Engine::start() {
 	entity_manager.set_position(player, new PositionComponent(3, 4));
 	entity_manager.set_movement(player, new MovementComponent());
 	entity_manager.set_appearance(player, new AppearanceComponent('@'));
+	entity_manager.set_collison(player, new CollisionComponent(true));
 
 	int other = entity_manager.new_entity();
 	entity_manager.set_position(other, new PositionComponent(1, 1));
 	entity_manager.set_appearance(other, new AppearanceComponent('O'));
+	entity_manager.set_collison(other, new CollisionComponent(true));
 
 	while(state != STOP) {
 		draw();
@@ -45,7 +48,7 @@ void Engine::process() {
 
 	int player = entity_manager.get_player();
 	entity_manager.set_accelerate(player, new AccelerateComponent());
-	entity_manager.get_accelerate(player)->distance = 1;
+	entity_manager.get_accelerate(player)->distance = 5;
 	entity_manager.get_accelerate(player)->speed = 1;
 	if(ch == KEY_LEFT) {
 		entity_manager.get_accelerate(player)->direction = Direction::EAST;
@@ -61,13 +64,14 @@ void Engine::process() {
 		log("Down input");
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();
-	} else if(ch == 'o') {
+	} else if(ch == ' ') {
 		delete entity_manager.get_accelerate(player);
 		entity_manager.set_accelerate(player, NULL);
 	}
 
 	accelerate_system.update();
 	movement_system.update();
+	collision_system.update();
 }
 
 void Engine::draw() {

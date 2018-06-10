@@ -10,5 +10,8 @@ void CollisionSystem::update() {
 }
 
 void CollisionSystem::update_entity(int id) {
+	CollisionComponent *collision = entity_manager.get_collision(id);
+	if (collision != NULL) {
 
+	}
 }
