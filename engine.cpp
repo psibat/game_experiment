@@ -48,7 +48,7 @@ void Engine::process() {
 
 	int player = entity_manager.get_player();
 	entity_manager.set_accelerate(player, new AccelerateComponent());
-	entity_manager.get_accelerate(player)->distance = 5;
+	entity_manager.get_accelerate(player)->distance = 1;
 	entity_manager.get_accelerate(player)->speed = 1;
 	if(ch == KEY_LEFT) {
 		entity_manager.get_accelerate(player)->direction = Direction::EAST;

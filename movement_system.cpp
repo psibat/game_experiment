@@ -32,27 +32,36 @@ void MovementSystem::update_entity(int id) {
 
 void MovementSystem::register_collisions(int id, MovementComponent *movement,
 		CollisionComponent *collision) {
+	bool blocked = false;
 	for (int i = 0;
-			i < movement->steps && movement->in_motion < (int) movement->path.size() - 1;
+			i < movement->steps && movement->in_motion < (int) movement->path.size() - 1 && !blocked;
 			i++) {
 		movement->in_motion++;
 		Position current_position = movement->path.at(movement->in_motion);
-		for (int other_id = 0; other_id < MAX_ENTITIES; other_id++) {
+
+		blocked = collision->passable_terrain.count(world.get_tile(current_position)) == 0;
+
+		for (int other_id = 0; other_id < MAX_ENTITIES && !blocked; other_id++) {
 			if (other_id != id && entity_manager.entity_exists(other_id)) {
 				CollisionComponent *other_collision = entity_manager.get_collision(other_id);
 				PositionComponent *other_position = entity_manager.get_position(other_id);
 
 				if (other_collision != NULL && other_collision->tangible &&
 						other_position != NULL && other_position->current == current_position) {
-
-					movement->path.erase(movement->path.begin() + movement->in_motion, movement->path.end());
-					movement->in_motion--;
-					log("HIT");
-		log("PATH SIZE: " + std::to_string(movement->path.size()) + " POSITION: " + std::to_string(movement->in_motion));
-					return;
+					collision->collided_with = other_id;
+					blocked = true;
 				}
 
 			}
 		}
+
+
+
+	}
+
+	if (blocked) {
+		movement->path.erase(movement->path.begin() + movement->in_motion, movement->path.end());
+		movement->in_motion--;
+		log("HIT");
 	}
 }
