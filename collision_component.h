@@ -14,7 +14,7 @@ struct CollisionComponent : public Component {
 
 		bool tangible;
 		std::set<World::Terrain> passable_terrain;
-		std::map<int, int> collided_with;
+		int collided_with;
 };
 
 #endif
