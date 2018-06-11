@@ -33,21 +33,29 @@ void MovementSystem::update_entity(int id) {
 void MovementSystem::register_collisions(int id, MovementComponent *movement,
 		CollisionComponent *collision) {
 	bool blocked = false;
+
+	// While not blocked go through path
 	for (int i = 0;
 			i < movement->steps && movement->in_motion < (int) movement->path.size() - 1 && !blocked;
 			i++) {
+
+		// Move along path
 		movement->in_motion++;
 		Position current_position = movement->path.at(movement->in_motion);
 
+		// Check if blocked by terrain
 		blocked = collision->passable_terrain.count(world.get_tile(current_position)) == 0;
 
+		// Go through all other entities and check collision
 		for (int other_id = 0; other_id < MAX_ENTITIES && !blocked; other_id++) {
 			if (other_id != id && entity_manager.entity_exists(other_id)) {
 				CollisionComponent *other_collision = entity_manager.get_collision(other_id);
 				PositionComponent *other_position = entity_manager.get_position(other_id);
 
+				// If the other entity has collision and is at the same position
 				if (other_collision != NULL && other_collision->tangible &&
 						other_position != NULL && other_position->current == current_position) {
+					// Save id of collided with entity for collision system
 					collision->collided_with = other_id;
 					blocked = true;
 				}
@@ -55,10 +63,9 @@ void MovementSystem::register_collisions(int id, MovementComponent *movement,
 			}
 		}
 
-
-
 	}
-
+	
+	// If blocked by entity/terrain erase rest of path and go back to before blocker
 	if (blocked) {
 		movement->path.erase(movement->path.begin() + movement->in_motion, movement->path.end());
 		movement->in_motion--;
