@@ -6,7 +6,7 @@ System::System(EntityManager &entity_manager, World &world) :
 
 void System::update_entities() {
 	for (int id = 0; id < MAX_ENTITIES; id++) {
-		if (entity_manager.entity_exists(id)) {
+		if (entity_manager.exists(id)) {
 			update_entity(id);
 		}
 	}

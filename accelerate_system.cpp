@@ -12,9 +12,9 @@ void AccelerateSystem::update() {
 }
 
 void AccelerateSystem::update_entity(int id) {
-	PositionComponent *position = entity_manager.get_position(id);
-	AccelerateComponent *accelerate = entity_manager.get_accelerate(id);
-	MovementComponent *movement = entity_manager.get_movement(id);
+	PositionComponent *position = entity_manager.get<PositionComponent>(id);
+	AccelerateComponent *accelerate = entity_manager.get<AccelerateComponent>(id);
+	MovementComponent *movement = entity_manager.get<MovementComponent>(id);
 	if (movement != NULL && position != NULL && accelerate != NULL) {
 		Position offset = accelerate_to_offset(accelerate);
 		Position target = {position->current.y + offset.y, position->current.x + offset.x};

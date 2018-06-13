@@ -13,9 +13,9 @@ void MovementSystem::update() {
 }
 
 void MovementSystem::update_entity(int id) {
-	PositionComponent *position = entity_manager.get_position(id);
-	MovementComponent *movement = entity_manager.get_movement(id);
-	CollisionComponent *collision = entity_manager.get_collision(id);
+	PositionComponent *position = entity_manager.get<PositionComponent>(id);
+	MovementComponent *movement = entity_manager.get<MovementComponent>(id);
+	CollisionComponent *collision = entity_manager.get<CollisionComponent>(id);
 	if (movement != NULL && position != NULL) {
 
 		if (collision != NULL && collision->tangible) {
@@ -48,9 +48,9 @@ void MovementSystem::register_collisions(int id, MovementComponent *movement,
 
 		// Go through all other entities and check collision
 		for (int other_id = 0; other_id < MAX_ENTITIES && !blocked; other_id++) {
-			if (other_id != id && entity_manager.entity_exists(other_id)) {
-				CollisionComponent *other_collision = entity_manager.get_collision(other_id);
-				PositionComponent *other_position = entity_manager.get_position(other_id);
+			if (other_id != id && entity_manager.exists(other_id)) {
+				CollisionComponent *other_collision = entity_manager.get<CollisionComponent>(other_id);
+				PositionComponent *other_position = entity_manager.get<PositionComponent>(other_id);
 
 				// If the other entity has collision and is at the same position
 				if (other_collision != NULL && other_collision->tangible &&

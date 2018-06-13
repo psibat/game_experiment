@@ -16,9 +16,9 @@ class EntityManager {
 	public:
 		EntityManager();
 
-		int new_entity();
-		void delete_entity(int id);
-		bool entity_exists(int id);
+		int create();
+		void destroy(int id);
+		bool exists(int id);
 
 		void set_player(int id);
 		int get_player();
@@ -26,21 +26,13 @@ class EntityManager {
 		void set_center(int id);
 		int get_center();
 
-		void set_position(int id, PositionComponent* position);
-		PositionComponent *get_position(int id);
+		void add(int id, Component *component) {
+			components.at(&typeid(*component)).at(id) = component;
+		}
 
-		void set_movement(int id, MovementComponent* movement);
-		MovementComponent *get_movement(int id);
-
-		void set_appearance(int id, AppearanceComponent* appearance);
-		AppearanceComponent *get_appearance(int id);
-
-		void set_accelerate(int id, AccelerateComponent* accelerate);
-		AccelerateComponent *get_accelerate(int id);
-
-		void set_collison(int id, CollisionComponent* collision);
-		CollisionComponent *get_collision(int id);
-
+		template <typename T> T *get(int id) {
+			return static_cast<T*>(components.at(&typeid(T)).at(id));
+		}
 
 	private:
 		// Single owner entity flags
@@ -49,11 +41,14 @@ class EntityManager {
 		
 		// Components / flags
 		std::vector<bool> existence;
-		std::vector<PositionComponent *> position_components;
-		std::vector<MovementComponent *> movement_components;
-		std::vector<AppearanceComponent *> appearance_components;
-		std::vector<AccelerateComponent *> accelerate_components;
-		std::vector<CollisionComponent *> collision_components;
+
+		std::map<const std::type_info*, std::vector<Component *>> components {
+			{&typeid(PositionComponent), std::vector<Component *>(MAX_ENTITIES)},
+			{&typeid(MovementComponent), std::vector<Component *>(MAX_ENTITIES)},
+			{&typeid(AppearanceComponent), std::vector<Component *>(MAX_ENTITIES)},
+			{&typeid(AccelerateComponent), std::vector<Component *>(MAX_ENTITIES)},
+			{&typeid(CollisionComponent), std::vector<Component *>(MAX_ENTITIES)}
+		};
 
 };
 

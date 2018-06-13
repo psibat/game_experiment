@@ -15,7 +15,7 @@ void RenderSystem::set_window(WINDOW *window) {
 }
 
 void RenderSystem::update() {
-	PositionComponent *center = entity_manager.get_position(entity_manager.get_center());
+	PositionComponent *center = entity_manager.get<PositionComponent>(entity_manager.get_center());
 	offset_y = calc_offset(height, center->current.y);
 	offset_x = calc_offset(width, center->current.x);
 
@@ -24,8 +24,8 @@ void RenderSystem::update() {
 }
 
 void RenderSystem::update_entity(int id) {
-	PositionComponent *position = entity_manager.get_position(id);
-	AppearanceComponent *appearance = entity_manager.get_appearance(id);
+	PositionComponent *position = entity_manager.get<PositionComponent>(id);
+	AppearanceComponent *appearance = entity_manager.get<AppearanceComponent>(id);
 	if (position != NULL && appearance != NULL) {
 		int y = offset_y + position->current.y;
 		int x = offset_x + position->current.x;
