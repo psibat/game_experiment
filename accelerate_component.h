@@ -16,7 +16,6 @@ struct AccelerateComponent : public Component {
 
 		// Steps to take per tick
 		int speed;
-
 };
 
 #endif
