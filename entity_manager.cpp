@@ -26,7 +26,7 @@ void EntityManager::destroy(int id) {
 	if (player == id) player = -1;
 	if (center == id) center = -1;
 
-	for (auto component_list : components) {
+	for (auto &component_list : components) {
 		delete component_list.second.at(id);
 		component_list.second.at(id) = NULL;
 	}

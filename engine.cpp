@@ -41,7 +41,9 @@ void Engine::start() {
 	}
 }
 
-void Engine::stop() { state = STOP; }
+void Engine::stop() {
+	state = STOP;
+}
 
 void Engine::process() {
 	int ch = getch();
