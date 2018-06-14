@@ -73,6 +73,7 @@ void Engine::process() {
 	accelerate_system.update();
 	movement_system.update();
 	collision_system.update();
+
 }
 
 void Engine::draw() {

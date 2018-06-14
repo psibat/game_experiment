@@ -27,8 +27,7 @@ void EntityManager::destroy(int id) {
 	if (center == id) center = -1;
 
 	for (auto &component_list : components) {
-		delete component_list.second.at(id);
-		component_list.second.at(id) = NULL;
+		remove(id, component_list.first);
 	}
 
 	log("Destroyed entity ID: " + std::to_string(id));
@@ -42,4 +41,13 @@ void EntityManager::add(int id, Component *component) {
 	const std::type_info* type = &typeid(*component);
 	delete components.at(type).at(id);
 	components.at(type).at(id) = component;
+}
+
+Component *EntityManager::get(int id, const std::type_info *type) {
+	return components.at(type).at(id);
+}
+
+void EntityManager::remove(int id, const std::type_info *type) {
+	delete components.at(type).at(id);
+	components.at(type).at(id) = NULL;
 }

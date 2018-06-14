@@ -16,22 +16,24 @@ class EntityManager {
 	public:
 		EntityManager();
 
+		// Entity
 		int create();
 		void destroy(int id);
 		bool exists(int id);
-		
+
+		// Components
 		void add(int id, Component *component);
+		Component *get(int id, const std::type_info *type);
+		void remove(int id, const std::type_info *type);
 
 		template <typename T> T
 			*get(int id) {
-				return static_cast<T*>(components.at(&typeid(T)).at(id));
+				return static_cast<T*>(get(id, &typeid(T)));
 			}
 
 		template <typename T>
 			void remove(int id) {
-				const std::type_info *type = &typeid(T);
-				delete components.at(type).at(id);
-				components.at(type).at(id) = NULL;
+				remove(id, &typeid(T));
 			}
 
 		// Single owner entity flags
@@ -43,6 +45,7 @@ class EntityManager {
 		std::vector<bool> existence;
 
 		typedef std::vector<Component *> ComponentVector;
+
 		std::map<const std::type_info*, ComponentVector> components {
 			{&typeid(PositionComponent), ComponentVector(MAX_ENTITIES)},
 			{&typeid(MovementComponent), ComponentVector(MAX_ENTITIES)},
