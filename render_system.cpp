@@ -15,7 +15,7 @@ void RenderSystem::set_window(WINDOW *window) {
 }
 
 void RenderSystem::update() {
-	PositionComponent *center = entity_manager.get<PositionComponent>(entity_manager.get_center());
+	PositionComponent *center = entity_manager.get<PositionComponent>(entity_manager.center);
 	offset_y = calc_offset(height, center->current.y);
 	offset_x = calc_offset(width, center->current.x);
 

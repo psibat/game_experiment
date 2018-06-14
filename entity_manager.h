@@ -19,35 +19,36 @@ class EntityManager {
 		int create();
 		void destroy(int id);
 		bool exists(int id);
+		
+		void add(int id, Component *component);
 
-		void set_player(int id);
-		int get_player();
+		template <typename T> T
+			*get(int id) {
+				return static_cast<T*>(components.at(&typeid(T)).at(id));
+			}
 
-		void set_center(int id);
-		int get_center();
+		template <typename T>
+			void remove(int id) {
+				const std::type_info *type = &typeid(T);
+				delete components.at(type).at(id);
+				components.at(type).at(id) = NULL;
+			}
 
-		void add(int id, Component *component) {
-			components.at(&typeid(*component)).at(id) = component;
-		}
-
-		template <typename T> T *get(int id) {
-			return static_cast<T*>(components.at(&typeid(T)).at(id));
-		}
-
-	private:
 		// Single owner entity flags
 		int player = -1;
 		int center = -1;
-		
+
+	private:
 		// Components / flags
 		std::vector<bool> existence;
 
-		std::map<const std::type_info*, std::vector<Component *>> components {
-			{&typeid(PositionComponent), std::vector<Component *>(MAX_ENTITIES)},
-			{&typeid(MovementComponent), std::vector<Component *>(MAX_ENTITIES)},
-			{&typeid(AppearanceComponent), std::vector<Component *>(MAX_ENTITIES)},
-			{&typeid(AccelerateComponent), std::vector<Component *>(MAX_ENTITIES)},
-			{&typeid(CollisionComponent), std::vector<Component *>(MAX_ENTITIES)}
+		typedef std::vector<Component *> ComponentVector;
+		std::map<const std::type_info*, ComponentVector> components {
+			{&typeid(PositionComponent), ComponentVector(MAX_ENTITIES)},
+			{&typeid(MovementComponent), ComponentVector(MAX_ENTITIES)},
+			{&typeid(AppearanceComponent), ComponentVector(MAX_ENTITIES)},
+			{&typeid(AccelerateComponent), ComponentVector(MAX_ENTITIES)},
+			{&typeid(CollisionComponent), ComponentVector(MAX_ENTITIES)}
 		};
 
 };

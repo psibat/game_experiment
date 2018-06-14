@@ -24,8 +24,7 @@ void AccelerateSystem::update_entity(int id) {
 		movement->path = create_path(position->current, target);
 		movement->steps = accelerate->speed;
 
-		delete accelerate;
-		accelerate = NULL;
+		entity_manager.remove<AccelerateComponent>(id);
 	}
 }
 

@@ -22,8 +22,8 @@ void Engine::start() {
 	world.set_tile(19, 19, World::Wall);
 
 	int player = entity_manager.create();
-	entity_manager.set_player(player);
-	entity_manager.set_center(player);
+	entity_manager.player = player;
+	entity_manager.center = player;
 	entity_manager.add(player, new PositionComponent(3, 4));
 	entity_manager.add(player, new MovementComponent());
 	entity_manager.add(player, new AppearanceComponent('@'));
@@ -46,7 +46,7 @@ void Engine::stop() { state = STOP; }
 void Engine::process() {
 	int ch = getch();
 
-	int player = entity_manager.get_player();
+	int player = entity_manager.player;
 	entity_manager.add(player, new AccelerateComponent());
 	entity_manager.get<AccelerateComponent>(player)->distance = 1;
 	entity_manager.get<AccelerateComponent>(player)->speed = 1;
@@ -65,8 +65,7 @@ void Engine::process() {
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();
 	} else if(ch == ' ') {
-		delete entity_manager.get<AccelerateComponent>(player);
-		entity_manager.add(player, NULL);
+		entity_manager.remove<AccelerateComponent>(player);
 	}
 
 	accelerate_system.update();
