@@ -13,18 +13,17 @@ void AccelerateSystem::update() {
 
 void AccelerateSystem::update_entity(int id) {
 	PositionComponent *position = entity_manager.get<PositionComponent>(id);
-	AccelerateComponent *accelerate = entity_manager.get<AccelerateComponent>(id);
 	MovementComponent *movement = entity_manager.get<MovementComponent>(id);
-	if (movement != NULL && position != NULL && accelerate != NULL) {
-		Position offset = accelerate_to_offset(accelerate);
+	if (movement != NULL && position != NULL && movement->state == MovementComponent::STARTING) {
+		Position offset = movement_to_offset(movement);
 		Position target = {position->current.y + offset.y, position->current.x + offset.x};
 		target = keep_in_bounds(target);
 
 		movement->in_motion = 0;
 		movement->path = create_path(position->current, target);
-		movement->steps = accelerate->speed;
+		movement->steps = movement->speed;
 
-		entity_manager.remove<AccelerateComponent>(id);
+		movement->state = MovementComponent::MOVING;
 	}
 }
 
@@ -45,11 +44,11 @@ Position AccelerateSystem::keep_in_bounds(Position target) {
 }
 
 
-Position AccelerateSystem::accelerate_to_offset(AccelerateComponent *accelerate) {
+Position AccelerateSystem::movement_to_offset(MovementComponent *movement) {
 	Position offset = {0, 0};
-	int distance = accelerate->distance;
+	int distance = movement->distance;
 
-	switch(accelerate->direction) {
+	switch(movement->direction) {
 		case Direction::NONE:
 			offset = {0, 0};
 			break;

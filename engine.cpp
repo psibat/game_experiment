@@ -49,25 +49,27 @@ void Engine::process() {
 	int ch = getch();
 
 	int player = entity_manager.player;
-	entity_manager.add(player, new AccelerateComponent());
-	entity_manager.get<AccelerateComponent>(player)->distance = 1;
-	entity_manager.get<AccelerateComponent>(player)->speed = 1;
+	entity_manager.get<MovementComponent>(player)->distance = 1;
+	entity_manager.get<MovementComponent>(player)->speed = 1;
 	if(ch == KEY_LEFT) {
-		entity_manager.get<AccelerateComponent>(player)->direction = Direction::EAST;
+		entity_manager.get<MovementComponent>(player)->state = MovementComponent::STARTING;
+		entity_manager.get<MovementComponent>(player)->direction = Direction::EAST;
 		log("Left input");
 	} else if(ch == KEY_RIGHT) {
-		entity_manager.get<AccelerateComponent>(player)->direction = Direction::WEST;
+		entity_manager.get<MovementComponent>(player)->state = MovementComponent::STARTING;
+		entity_manager.get<MovementComponent>(player)->direction = Direction::WEST;
 		log("Right input");
 	} else if(ch == KEY_UP) {
-		entity_manager.get<AccelerateComponent>(player)->direction = Direction::NORTH;
+		entity_manager.get<MovementComponent>(player)->state = MovementComponent::STARTING;
+		entity_manager.get<MovementComponent>(player)->direction = Direction::NORTH;
 		log("Up input");
 	} else if(ch == KEY_DOWN) {
-		entity_manager.get<AccelerateComponent>(player)->direction = Direction::SOUTH;
+		entity_manager.get<MovementComponent>(player)->state = MovementComponent::STARTING;
+		entity_manager.get<MovementComponent>(player)->direction = Direction::SOUTH;
 		log("Down input");
 	} else if(ch == 'q' || ch == 'Q') {
 		stop();
 	} else if(ch == ' ') {
-		entity_manager.remove<AccelerateComponent>(player);
 	}
 
 	accelerate_system.update();

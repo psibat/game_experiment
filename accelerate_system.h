@@ -16,7 +16,7 @@ class AccelerateSystem : public System {
 
 		Position keep_in_bounds(Position target);
 
-		Position accelerate_to_offset(AccelerateComponent *accelerate);
+		Position movement_to_offset(MovementComponent *movement);
 
 		std::vector<Position> create_path(Position start, Position end);
 };

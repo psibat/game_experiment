@@ -16,7 +16,7 @@ void MovementSystem::update_entity(int id) {
 	PositionComponent *position = entity_manager.get<PositionComponent>(id);
 	MovementComponent *movement = entity_manager.get<MovementComponent>(id);
 	CollisionComponent *collision = entity_manager.get<CollisionComponent>(id);
-	if (movement != NULL && position != NULL) {
+	if (movement != NULL && position != NULL && movement->state == MovementComponent::MOVING) {
 
 		if (collision != NULL && collision->tangible) {
 			register_collisions(id, movement, collision);
@@ -70,5 +70,10 @@ void MovementSystem::register_collisions(int id, MovementComponent *movement,
 		movement->path.erase(movement->path.begin() + movement->in_motion, movement->path.end());
 		movement->in_motion--;
 		log("HIT");
+	}
+
+	if (movement->in_motion == (int) movement->path.size() - 1) {
+		movement->state = MovementComponent::HALTED;
+		log("Stopping");
 	}
 }

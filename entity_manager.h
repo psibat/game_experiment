@@ -4,7 +4,6 @@
 #include "position_component.h"
 #include "movement_component.h"
 #include "appearance_component.h"
-#include "accelerate_component.h"
 #include "collision_component.h"
 
 #ifndef ENTITY_MANAGER_H
@@ -50,7 +49,6 @@ class EntityManager {
 			{&typeid(PositionComponent), ComponentVector(MAX_ENTITIES)},
 			{&typeid(MovementComponent), ComponentVector(MAX_ENTITIES)},
 			{&typeid(AppearanceComponent), ComponentVector(MAX_ENTITIES)},
-			{&typeid(AccelerateComponent), ComponentVector(MAX_ENTITIES)},
 			{&typeid(CollisionComponent), ComponentVector(MAX_ENTITIES)}
 		};
 
