@@ -4,6 +4,7 @@
 
 #include "logger.h"
 #include "direction.h"
+#include "main_menu.h"
  
 Engine::Engine() : world(20, 20),
 	render_system(entity_manager, world),
@@ -17,7 +18,7 @@ void Engine::start() {
 	int height, width;
 	getmaxyx(stdscr, height, width);
 
-	state = GAMEPLAY;
+	state = GameState::MAIN_MENU;
 
 	world.set_tile(19, 19, World::Wall);
 
@@ -34,15 +35,33 @@ void Engine::start() {
 	entity_manager.add(other, new AppearanceComponent('O'));
 	entity_manager.add(other, new CollisionComponent(true));
 
-	while(state != STOP) {
-		draw();
-		process();
-		log("---!---");
+	while(state != GameState::STOP) {
+		switch(state) {
+			case GameState::STOP:
+				log("---!---");
+				return;
+			case GameState::MAIN_MENU:
+				main_menu();
+				break;
+			case GameState::GAMEPLAY:
+				gameplay();
+				break;
+		}
 	}
 }
 
 void Engine::stop() {
-	state = STOP;
+	state = GameState::STOP;
+}
+
+void Engine::gameplay() {
+	draw();
+	process();
+}
+
+void Engine::main_menu() {
+	MainMenu m(state);
+	m.run();
 }
 
 void Engine::process() {

@@ -7,7 +7,6 @@
 RenderSystem::RenderSystem(EntityManager &entity_manager, World &world, WINDOW *window) : 
 	System(entity_manager, world),
 	window(window) {
-	getmaxyx(window, height, width);
 }
 
 void RenderSystem::set_window(WINDOW *window) {
@@ -15,6 +14,7 @@ void RenderSystem::set_window(WINDOW *window) {
 }
 
 void RenderSystem::update() {
+	getmaxyx(window, height, width);
 	PositionComponent *center = entity_manager.get<PositionComponent>(entity_manager.center);
 	offset_y = calc_offset(height, center->current.y);
 	offset_x = calc_offset(width, center->current.x);
